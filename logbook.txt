@@ -1,0 +1,31 @@
+
+BASIC CONFIGURATION OF THE YML FILE OF A DOCKER CONTAINR OF POSTGRESQL:
+  https://hub.docker.com/_/postgres => HERE IT IS A BASIC GUIDE TO SETUP A POSTGRESQL YAML FILE
+
+BASIC INTERACTION WITH DOCKER CONTAINER:
+  docker-compose up -d [SERVICE_NAME]  ===> TURNS ON A SERVICE OF THE docer-compose.yml file
+  docker-compose down [SERVICE_NAME] ===> TURNS OF A SERVICE IN OF THE docker-compose.yml file
+  docker-compose ps ===> PRINTS OUT THE CURRENT RUNNING DOCKER'S SERVICES STATUS
+
+HOW TO ACCESS A POSTGRESQL DOCKER CONTAINER IN BASH MODE:
+  docker-compose exec [SERVICE_NAME] bash ===> ENTERS INTO A RUNING DOCKER SERVICE IN BASH MODE, IT CAN BE USED TO ACCES A POSTGRESS CONTAINER
+  psql -h localhost -d [DB_NAME(my_store)] -U user ===> When you're in the container you can acces to a created db using this command
+  \d+  ===> When youre in the db you can see it's schema using this command
+
+CONFIGURE A PGADMIN4 IMAGE TO ACCES A POSTGRESQL DOCKER CONTAINER BY A WEB GRAPHIC UI:
+  https://hub.docker.com/r/dpage/pgadmin4
+  IF YOU WANT TO CONNECT THE DB INSIDE THE DOCKER CONTAINER WITH PGADMIN4 UI YOU MAY WANT TO KNOWS IT'S IP
+
+  HOW TO KNOW THE IP OF A POSTGRESQL DOCKER CONTAINER:
+    YOU CAN:
+      - Enter into the container with docker-compose exec [SERVICE_NAME] bash THEN JUST grab the id from the dir location of the basmode
+      OR
+      - docker ps ===> WILL GIVE YOU MORE INFORMATION ABOUT THE COINTAINERS, THE ONE YOU NEED IT'S THE ID OF THE POSTGRESQL CONTAINER
+          ===> docker inspect [CONTAINER_ID(81384ff38429)] ===> PRINTS OUT A LOT OF INFORMATION ABOUT THE GIVEN CONTAINER, YOU MUST LOOK UP FOR THE 'IPAddress' PROP AT THE END.
+
+
+
+CONNECTING OUR NODE APP WITH POSGRESQL:
+
+  https://node-postgres.com/ ===> It's the library we're goin to use to connect with postgres
+  npm i pg -E
