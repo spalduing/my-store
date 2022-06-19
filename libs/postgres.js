@@ -1,12 +1,10 @@
 const { Client } = require('pg');
 
+const urlConfig = require('./config');
+
 const getConnection = async () => {
   const client = new Client({
-    host: 'localhost',
-    port: 5432,
-    user: 'user',
-    password: '12345',
-    database: 'my_store',
+    connectionString: urlConfig.dev,
   });
   await client.connect();
   return client;

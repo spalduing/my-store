@@ -9,7 +9,7 @@ class ProductsService {
     this.generate();
     this.pool = pool;
     this.pool.on('error', (err) => {
-      console.err(err);
+      console.err('error ===>', err);
     });
   }
 
