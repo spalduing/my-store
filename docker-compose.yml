@@ -21,16 +21,25 @@ services:
     ports:
       - 5050:80
 
-  mysql:
+  mysql: # THIS IS THE <<SERVICE_NAME>>
     image: mysql:5
     environment:
-      - MYSQL_DB=my_store
-      - MYSQL_USER=user
+      - MYSQL_DATABASE=my_store
       - MYSQL_ROOT_PASSWORD=12345
-      - PORT=3306
+      #- MYSQL_USER=
+      #- PORT=3307
 
     ports:
-      - 3306:3306
+      - 3307:3306
 
     volumes:
       - ./mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql #THE VALUE MUST BE THE <<SERVICE_NAME>> THAT IT'L BE CONNECTING WITH
+      - MYSQL_ROOT_PASSWORD=12345
+
+    ports:
+      - 8080:80

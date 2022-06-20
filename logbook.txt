@@ -8,9 +8,11 @@ BASIC INTERACTION WITH DOCKER CONTAINER:
   docker-compose ps ===> PRINTS OUT THE CURRENT RUNNING DOCKER'S SERVICES STATUS
 
 HOW TO ACCESS A POSTGRESQL DOCKER CONTAINER IN BASH MODE:
-  docker-compose exec [SERVICE_NAME] bash ===> ENTERS INTO A RUNING DOCKER SERVICE IN BASH MODE, IT CAN BE USED TO ACCES A POSTGRESS CONTAINER
-  psql -h localhost -d [DB_NAME(my_store)] -U user ===> When you're in the container you can acces to a created db using this command
-  \d+  ===> When youre in the db you can see it's schema using this command
+  - docker-compose exec [SERVICE_NAME] bash ===> ENTERS INTO A RUNING DOCKER SERVICE IN BASH MODE, IT CAN BE USED TO ACCES A POSTGRESS CONTAINER
+  - psql -h localhost -d [DB_NAME(my_store)] -U user ===> When you're in the container you can acces to a created db using this command
+  - \d+  ===> When youre in the db you can see it's schema using this command
+  - \q ===> YOU CAN USE THIS COMMAND TO GET OUT OF THE BASH CONSOLE
+  - exit ===> YOU CAN USE THIS COMMAND TO GET OUT OF THE DOCKER CONTAINER
 
 CONFIGURE A PGADMIN4 IMAGE TO ACCES A POSTGRESQL DOCKER CONTAINER BY A WEB GRAPHIC UI:
   https://hub.docker.com/r/dpage/pgadmin4
@@ -29,3 +31,20 @@ CONNECTING OUR NODE APP WITH POSGRESQL:
 
   https://node-postgres.com/ ===> It's the library we're goin to use to connect with postgres
   npm i pg -E
+
+
+
+CONFIGURE A SERVICE FOR A MYSQL INSTACE IN DOCKER:
+  - The mandatory environment variables are MYSQL_DATABASE MYSQL_ROOT_PASSWORD
+  - you may want to change the default 3306 port if you already have a mysql db using this port
+
+  ==> After setting up the basic configuration you must create a new db (my_store) by INTERACTING WITH A MYSQL DOCKER INSTACE
+
+  INTERACTING WITH A MYSQL DOCKER INSTANCE IN BASH MODE:
+    - docker-compose exec [SERVICE_NAME(mysql)] bash ===> run this command to access to the docker instance in bash
+    - mysql -e "[SQL QUERY]" -p ===> run this to perform an sql query in the sql container, you must provide the password after executing this command
+      - https://phoenixnap.com/kb/how-to-list-all-databases-mysql#:~:text=How%20to%20Show%20all%20MySQL%20Databases%20From%20Command%20Line
+    - IF IT'S THE FIRST TIME SETTING UP THE DOCKER CONTAINER YOU MAY WANT TO CHECK IF THE DB YOU NEED IT'S CREATED, AND IF IT'S NOT CREATED
+        YOU MUST TO CREATED A NEW DB THAT HAS THE SAME NAME THAT YOU SET IN THE YML FILE FOR THE 'mysql' SERVICE.
+      - mysql -e "SHOW DATABASES;" -p
+      - mysql -e "CREATE DATABASE my_store;" -p
