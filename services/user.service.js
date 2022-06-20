@@ -5,28 +5,36 @@ class UserService {
   constructor() {}
 
   async create(data) {
-    return data;
+    const newUser = await sequelize.models.User.create(data);
+    if (!newUser) {
+      throw boom.badData('wrong properties for an user');
+    }
+    return newUser;
   }
 
   async find() {
-    boom.badData();
-
-    const [data, metadata] = await sequelize.query('SELECT * FROM tasks');
-    return { data, metadata };
+    const rta = await sequelize.models.User.findAll();
+    return rta;
   }
 
   async findOne(id) {
-    return { id };
+    const user = await sequelize.models.User.findByPk(id);
+    if (!user) {
+      throw boom.notFound('user not found');
+    }
+    return user;
   }
 
   async update(id, changes) {
-    return {
-      id,
-      changes,
-    };
+    const user = await this.findOne(id);
+
+    const rta = await user.update(changes);
+    return rta;
   }
 
   async delete(id) {
+    const user = await this.findOne();
+    await user.destroy();
     return { id };
   }
 }
