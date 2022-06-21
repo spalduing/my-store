@@ -52,3 +52,17 @@ CONFIGURE A SERVICE FOR A MYSQL INSTACE IN DOCKER:
 
 CONFIGURE A MIGRATION SYSTEM WITH SEQUELIZE
   - npm i sequelize-cli -D -E ===> INSTALL THIS NPM PACKAGE TO CREATE A MIGRATION BOILERPLATE
+  - create a file named '.sequelizerc' and export from it an object that contains the paths to:
+    - configuration file of the migrations
+    - models folder of the sequilize orm
+    - migrations folder in wich sequelize-cli will persist the generated boilerplates
+    - seeders folder
+
+  - [IMPORTANT!] YOU MUST BE CAREFUL AND CHECK THAT THE 'timestamps' PARAM IN YOUR MODEL IS SETTED TO TRUE
+    - https://stackoverflow.com/questions/20386402/sequelize-unknown-column-createdat-in-field-list
+
+  - in the 'scripts' section from 'package.json' file write the following scripts:
+    - "migrations:generate": "sequelize-cli migration:generate --name" ===> wil generate a boiler plate with a given name
+    - "migrations:run": "sequelize-cli db:migrate" ===> will run all the migrations
+    - "migrations:revert": "sequelize-cli db:migrate:undo" ===> will perfom the equivalent of a rollback
+    - "migrations:clean": "sequelize-cli db:migrate:undo:all" ===> will rollback all the migrations to the initial state
