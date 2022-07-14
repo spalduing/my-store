@@ -1,9 +1,9 @@
 
-BASIC CONFIGURATION OF THE YML FILE OF A DOCKER CONTAINR OF POSTGRESQL:
+BASIC CONFIGURATION OF THE YML FILE OF A POSTGRESQL DOCKER CONTAINER:
   https://hub.docker.com/_/postgres => HERE IT IS A BASIC GUIDE TO SETUP A POSTGRESQL YAML FILE
 
 BASIC INTERACTION WITH DOCKER CONTAINER:
-  docker-compose up -d [SERVICE_NAME]  ===> TURNS ON A SERVICE OF THE docer-compose.yml file
+  docker-compose up -d [SERVICE_NAME]  ===> TURNS ON A SERVICE OF THE docker-compose.yml file
   docker-compose down [SERVICE_NAME] ===> TURNS OF A SERVICE IN OF THE docker-compose.yml file
   docker-compose ps ===> PRINTS OUT THE CURRENT RUNNING DOCKER'S SERVICES STATUS
 
@@ -60,9 +60,17 @@ CONFIGURE A MIGRATION SYSTEM WITH SEQUELIZE
 
   - [IMPORTANT!] YOU MUST BE CAREFUL AND CHECK THAT THE 'timestamps' PARAM IN YOUR MODEL IS SETTED TO TRUE
     - https://stackoverflow.com/questions/20386402/sequelize-unknown-column-createdat-in-field-list
+    - https://stackoverflow.com/questions/20386402/sequelize-unknown-column-createdat-in-field-list#:~:text=define%3A%20%7B%0A%20%20%20%20%20%20%20%20timestamps%3A%20false%0A%20%20%20%20%7D
 
   - in the 'scripts' section from 'package.json' file write the following scripts:
     - "migrations:generate": "sequelize-cli migration:generate --name" ===> wil generate a boiler plate with a given name
     - "migrations:run": "sequelize-cli db:migrate" ===> will run all the migrations
     - "migrations:revert": "sequelize-cli db:migrate:undo" ===> will perfom the equivalent of a rollback
     - "migrations:clean": "sequelize-cli db:migrate:undo:all" ===> will rollback all the migrations to the initial state
+
+
+PORSTGRESQL RELATIONS:
+
+    ONE-ONE: If we have the entities A = 'customer' and B = 'user', then:
+      - 'A' HasOne -> 'B' ===> The relation will fall on 'B'
+      - 'A' BelongsTo -> 'B' ==> The relation will fall on 'A'

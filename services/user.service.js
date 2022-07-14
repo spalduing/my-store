@@ -13,7 +13,7 @@ class UserService {
   }
 
   async find() {
-    const rta = await sequelize.models.User.findAll();
+    const rta = await sequelize.models.User.findAll({ include: ['customer'] });
     return rta;
   }
 
