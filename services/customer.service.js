@@ -1,11 +1,13 @@
 const boom = require('@hapi/boom');
 
-const sequelize = require('../libs/sequelize');
+const { models } = require('../libs/sequelize');
 class CustomerService {
   constructor() {}
 
   async create(data) {
-    const newCustomer = await sequelize.models.Customer.create(data);
+    const newCustomer = await models.Customer.create(data, {
+      include: ['user'],
+    });
     if (!newCustomer) {
       throw boom.badData('wrong properties for a customer');
     }
@@ -13,14 +15,14 @@ class CustomerService {
   }
 
   async find() {
-    const rta = await sequelize.models.Customer.findAll({
+    const rta = await models.Customer.findAll({
       include: ['user'],
     });
     return rta;
   }
 
   async findOne(id) {
-    const customer = await sequelize.models.Customer.findByPk(id);
+    const customer = await models.Customer.findByPk(id);
     if (!customer) {
       throw boom.notFound('customer not found');
     }
