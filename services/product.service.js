@@ -1,13 +1,10 @@
 const faker = require('faker');
 const boom = require('@hapi/boom');
 
-const sequelize = require('../libs/sequelize');
+const { models } = require('../libs/sequelize');
 
 class ProductsService {
-  constructor() {
-    this.products = [];
-    this.generate();
-  }
+  constructor() {}
 
   generate() {
     const limit = 100;
@@ -23,27 +20,22 @@ class ProductsService {
   }
 
   async create(data) {
-    const newProduct = {
-      id: faker.datatype.uuid(),
-      ...data,
-    };
-    this.products.push(newProduct);
+    const newProduct = await models.Product.create(data);
+    if (!newProduct) {
+      return boom.badData('wrong properties for a product');
+    }
     return newProduct;
   }
 
   async find() {
-    const query = 'SELECT * from tasks';
-    const [data, metadata] = await sequelize.query(query);
-    return { data, metadata };
+    const rta = await models.Product.findAll({ include: ['category'] });
+    return rta;
   }
 
   async findOne(id) {
-    const product = this.products.find((item) => item.id === id);
+    const product = await models.Product.findByPk(id);
     if (!product) {
       throw boom.notFound('product not found');
-    }
-    if (product.isBlock) {
-      throw boom.conflict('product is block');
     }
     return product;
   }

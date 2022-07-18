@@ -74,3 +74,11 @@ PORSTGRESQL RELATIONS:
     ONE-ONE: If we have the entities A = 'customer' and B = 'user', then:
       - 'A' HasOne -> 'B' ===> The relation will fall on 'B'
       - 'A' BelongsTo -> 'B' ==> The relation will fall on 'A'
+        - You CAN resolve the creation of 'A' from 'B' (who owns the relation) creation using {include: '[relation_alias]'}
+            at the create service.
+
+    ONE-MANY: if we have the entities A= 'category'and B = 'product', then:
+      - 'A' has many 'B' ==> The relation will fall on 'B'
+        - You CANNOT resolve the creation of 'B' (who owns the relation) from 'A' creation using {include: '[relation_alias]'}
+            at the create service.
+      - 'A' BelongsTo -> 'B' ==> The relation will fall on 'A'
