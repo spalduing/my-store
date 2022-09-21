@@ -3,6 +3,7 @@ BASIC CONFIGURATION OF THE YML FILE OF A POSTGRESQL DOCKER CONTAINER:
   https://hub.docker.com/_/postgres => HERE IT IS A BASIC GUIDE TO SETUP A POSTGRESQL YAML FILE
 
 BASIC INTERACTION WITH DOCKER CONTAINER:
+  When you install docker for the first time, you need to enable the "Docker Compose V1/V2 compatibility mode" in order to run docker-compose command
   docker-compose up -d [SERVICE_NAME]  ===> TURNS ON A SERVICE OF THE docker-compose.yml file
   docker-compose down [SERVICE_NAME] ===> TURNS OF A SERVICE IN OF THE docker-compose.yml file
   docker-compose ps ===> PRINTS OUT THE CURRENT RUNNING DOCKER'S SERVICES STATUS
